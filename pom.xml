@@ -17,6 +17,9 @@
         <selenium.version>3.141.5</selenium.version>
         <lombok.version>1.18.10</lombok.version>
         <log4j.version>1.2.17</log4j.version>
+        <webdrivermanager.version>3.8.1</webdrivermanager.version>
+        <maven.checkstyle.version>3.1.0</maven.checkstyle.version>
+        <maven.pmd.version>3.12.0</maven.pmd.version>
     </properties>
 
     <dependencies>
@@ -46,6 +49,11 @@
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -67,6 +75,48 @@
                         <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.version}</version>
+                <configuration>
+                    <configLocation>./config/checkstyle/checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle-validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven.pmd.version}</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>config/pmd/ruleSet.xml</ruleset>
+                    </rulesets>
+                    <printFailingErrors>true</printFailingErrors>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pmd-validate</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
