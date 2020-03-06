@@ -2,6 +2,7 @@ package com.borzykin.webautomation.pages;
 
 import java.util.List;
 
+import com.borzykin.webautomation.config.ApplicationConfig;
 import lombok.extern.log4j.Log4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +20,7 @@ public abstract class AbstractPage {
 
     public AbstractPage(final WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 10);
+        this.wait = new WebDriverWait(driver, new ApplicationConfig().getTimeout());
     }
 
     public abstract boolean isDisplayed();

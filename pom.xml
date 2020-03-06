@@ -9,6 +9,7 @@
     <version>0.1</version>
 
     <properties>
+        <test.suite>testng.xml</test.suite>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -72,7 +73,7 @@
                 <version>3.0.0-M1</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/java/resources/testng.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/java/resources/${test.suite}</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
