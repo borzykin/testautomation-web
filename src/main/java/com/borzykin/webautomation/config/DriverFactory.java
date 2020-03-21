@@ -29,7 +29,7 @@ public class DriverFactory {
                 driver.set(new FirefoxDriver());
                 break;
             default:
-                log.warn("Do not know how to start: " + browser + ", starting chrome.");
+                log.info(String.format("Do not know how to start: '%s', starting chrome.", browser));
                 WebDriverManager.chromedriver().setup();
                 driver.set(new ChromeDriver());
                 break;
