@@ -28,7 +28,19 @@ public class BasicTests extends AbstractTest {
         AbTestPage abTestPage = welcomePage.clickAbTestLink();
         String pageTitle = abTestPage.getPageNameText();
         assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)"))
-                .as("Page title [" + pageTitle + "] should be 'No A/B Test' or 'A/B Test Control'")
+                .as(String.format("Page title '%s' should be 'No A/B Test' or 'A/B Test Control'", pageTitle))
                 .isEqualTo(true);
+    }
+
+    @Test
+    public void fakeDataProviderTest() {
+        log.info(String.format("Generating name: %s", fairy.person().getFullName()));
+        log.info(String.format("Generating email: %s", fairy.person().getEmail()));
+        log.info(String.format("Generating password: %s", fairy.person().getPassword()));
+        log.info(String.format("Generating company: %s", fairy.company().getName()));
+        log.info(String.format("Generating URL: %s", fairy.company().getUrl()));
+        assertThat(fairy.person().getFullName())
+                .as("Should be new data each time")
+                .isNotEqualTo(fairy.person().getFullName());
     }
 }
