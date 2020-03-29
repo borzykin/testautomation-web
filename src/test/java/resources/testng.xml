@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Basic suite" verbose="1" parallel="tests" thread-count="1">
-    <test name="Test Chrome">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="com.borzykin.webautomation.tests.BasicTests"/>
-        </classes>
-    </test>
-</suite>

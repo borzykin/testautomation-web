@@ -1,24 +1,27 @@
 package com.borzykin.webautomation.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Oleksii B
  */
 public class AbTestPage extends AbstractPage {
-    private static final By PAGE_NAME_TEXT = By.xpath("//div[@class='example']/h3");
+    @FindBy (xpath = "//div[@class='example']/h3")
+    private WebElement pageNameLabel;
 
     public AbTestPage(final WebDriver driver) {
         super(driver);
     }
 
-    public String getPageNameText() {
-        return getWebElement(PAGE_NAME_TEXT).getText();
+    @Override
+    public void navigate() {
+        driver.get("https://the-internet.herokuapp.com/abtest");
     }
 
-    @Override
-    public boolean isDisplayed() {
-        return false;
+    public String getPageNameText() {
+        return pageNameLabel.getText();
     }
+
 }

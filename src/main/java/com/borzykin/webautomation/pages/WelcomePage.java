@@ -1,30 +1,29 @@
 package com.borzykin.webautomation.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Oleksii B
  */
 public class WelcomePage extends AbstractPage {
-    private static final String URL = "https://the-internet.herokuapp.com/";
-    private static final By AB_TESTING_LINK = By.linkText("A/B Testing");
+    @FindBy (linkText = "A/B Testing")
+    private WebElement abTestLink;
 
     public WelcomePage(final WebDriver driver) {
         super(driver);
     }
 
-    public void openPage() {
-        driver.get(URL);
+    @Override
+    public void navigate() {
+        driver.get("https://the-internet.herokuapp.com/");
     }
 
     public AbTestPage clickAbTestLink() {
-        clickElement(AB_TESTING_LINK);
+        clickElement(abTestLink);
         return new AbTestPage(driver);
     }
 
-    @Override
-    public boolean isDisplayed() {
-        return false;
-    }
+
 }

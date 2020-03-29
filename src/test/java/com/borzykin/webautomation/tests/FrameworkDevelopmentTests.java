@@ -4,7 +4,8 @@ import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.WelcomePage;
 import lombok.extern.log4j.Log4j;
 import org.assertj.core.data.Percentage;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -12,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
  * @author Oleksii B
  */
 @Log4j
-public class BasicTests extends AbstractTest {
+public class FrameworkDevelopmentTests extends BaseTest {
     @Test
     public void testingTests() {
         log.info("T E S T");
@@ -24,7 +25,7 @@ public class BasicTests extends AbstractTest {
     @Test
     public void simpleTest() {
         WelcomePage welcomePage = new WelcomePage(driver);
-        welcomePage.openPage();
+        welcomePage.navigate();
         AbTestPage abTestPage = welcomePage.clickAbTestLink();
         String pageTitle = abTestPage.getPageNameText();
         assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)"))
