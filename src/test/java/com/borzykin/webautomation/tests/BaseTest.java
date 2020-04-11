@@ -29,7 +29,7 @@ public class BaseTest {
     }
 
     @BeforeEach
-    public void setMixpanelAutomationCookies() {
+    public void navigateToURL() {
         driver.get("http://localhost:8080/");
     }
 
