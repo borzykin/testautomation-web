@@ -1,6 +1,5 @@
 package com.borzykin.webautomation.tests;
 
-import com.borzykin.webautomation.config.DriverFactory;
 import com.borzykin.webautomation.modules.CoreModule;
 import com.borzykin.webautomation.pages.Page;
 import com.google.inject.Guice;
@@ -31,7 +30,6 @@ public class Tests {
         driver.get("https://google.com/");
         page.sysout();
     }
-
 
 
     private void injectModules() {
