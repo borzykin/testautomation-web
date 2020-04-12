@@ -3,7 +3,7 @@ package com.borzykin.webautomation.tests;
 import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.HomePage;
 import com.google.inject.Inject;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * @author Oleksii B
  */
-@Log4j
+@Log4j2
 public class FrameworkDevelopmentTests extends BaseTest {
     @Inject
     private HomePage homePage;
