@@ -1,5 +1,6 @@
 package com.borzykin.webautomation.pages;
 
+import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,15 +8,15 @@ import org.openqa.selenium.support.FindBy;
 /**
  * @author Oleksii B
  */
-public class WelcomePage extends AbstractPage {
+public class HomePage extends BasePage {
     @FindBy (linkText = "A/B Testing")
     private WebElement abTestLink;
 
-    public WelcomePage(final WebDriver driver) {
+    @Inject
+    public HomePage(final WebDriver driver) {
         super(driver);
     }
 
-    @Override
     public void navigate() {
         driver.get("https://the-internet.herokuapp.com/");
     }

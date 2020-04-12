@@ -1,8 +1,9 @@
 package com.borzykin.webautomation.tests;
 
 import com.borzykin.webautomation.pages.AbTestPage;
-import com.borzykin.webautomation.pages.WelcomePage;
-import lombok.extern.log4j.Log4j2;
+import com.borzykin.webautomation.pages.HomePage;
+import com.google.inject.Inject;
+import lombok.extern.log4j.Log4j;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +13,13 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * @author Oleksii B
  */
-@Log4j2
+@Log4j
 public class FrameworkDevelopmentTests extends BaseTest {
+    @Inject
+    private HomePage homePage;
+    @Inject
+    private AbTestPage abTestPage;
+
     @Test
     public void testingTests() {
         log.info("T E S T");
@@ -24,9 +30,8 @@ public class FrameworkDevelopmentTests extends BaseTest {
 
     @Test
     public void simpleTest() {
-        WelcomePage welcomePage = new WelcomePage(driver);
-        welcomePage.navigate();
-        AbTestPage abTestPage = welcomePage.clickAbTestLink();
+        homePage.navigate();
+        homePage.clickAbTestLink();
         String pageTitle = abTestPage.getPageNameText();
         assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)"))
                 .as(String.format("Page title '%s' should be 'No A/B Test' or 'A/B Test Control'", pageTitle))
