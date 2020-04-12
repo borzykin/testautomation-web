@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 public class BaseTest {
     @Inject
     protected WebDriver driver;
-    @Inject
-    protected BasePage basePage;
 
     protected Fairy fairy;
 

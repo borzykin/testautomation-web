@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  */
 @Log4j
 public class DriverFactory {
-    private String browser;
+    private final String browser;
     private WebDriver driver;
 
     @Inject

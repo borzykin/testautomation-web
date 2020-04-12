@@ -12,11 +12,11 @@ import org.openqa.selenium.WebDriver;
 public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
-
+        // future binding will be here
     }
 
     @Provides @Singleton
-    public WebDriver getDriver(DriverFactory driverFactory) {
+    public WebDriver getDriver(final DriverFactory driverFactory) {
         return driverFactory.getDriver();
     }
 }
