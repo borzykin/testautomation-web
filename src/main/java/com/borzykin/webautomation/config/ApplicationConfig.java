@@ -7,13 +7,13 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 import lombok.Getter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 
 /**
  * @author Oleksii B
  */
 @Getter
-@Log4j
+@Log4j2
 public class ApplicationConfig {
     private String baseUserLogin;
     private String baseUserPassword;

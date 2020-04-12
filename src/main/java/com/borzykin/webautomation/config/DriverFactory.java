@@ -1,7 +1,7 @@
 package com.borzykin.webautomation.config;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * @author Oleksii B
  */
-@Log4j
+@Log4j2
 public class DriverFactory {
     private final String browser;
     private final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
