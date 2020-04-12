@@ -10,20 +10,16 @@ import org.openqa.selenium.support.PageFactory;
  * @author Oleksii B
  */
 @Log4j
-public class Page {
+public class BasePage {
     protected WebDriver driver;
 
     @Inject
-    public Page(final WebDriver driver) {
+    public BasePage(final WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(this.driver, this);
     }
 
     protected void clickElement(final WebElement element) {
         element.click();
-    }
-
-    public void sysout() {
-        System.out.println("Hello");
     }
 }

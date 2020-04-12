@@ -1,0 +1,52 @@
+package com.borzykin.webautomation.tests;
+
+import com.borzykin.webautomation.pages.AbTestPage;
+import com.borzykin.webautomation.pages.HomePage;
+import com.google.inject.Inject;
+import lombok.extern.log4j.Log4j;
+import org.assertj.core.data.Percentage;
+import org.junit.jupiter.api.Test;
+
+
+import static org.assertj.core.api.Assertions.*;
+
+/**
+ * @author Oleksii B
+ */
+@Log4j
+public class FrameworkDevelopmentTests extends BaseTest {
+    @Inject
+    private HomePage homePage;
+    @Inject
+    private AbTestPage abTestPage;
+
+    @Test
+    public void testingTests() {
+        log.info("T E S T");
+        assertThat(2 + 2)
+                .as("Sum should be close")
+                .isCloseTo(5, Percentage.withPercentage(25));
+    }
+
+    @Test
+    public void simpleTest() {
+        homePage.navigate();
+        homePage.clickAbTestLink();
+        String pageTitle = abTestPage.getPageNameText();
+        assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)"))
+                .as(String.format("Page title '%s' should be 'No A/B Test' or 'A/B Test Control'", pageTitle))
+                .isEqualTo(true);
+    }
+
+    @Test
+    public void fakeDataProviderTest() {
+        log.info(String.format("Generating name: %s", fairy.person().getFullName()));
+        log.info(String.format("Generating email: %s", fairy.person().getEmail()));
+        log.info(String.format("Generating password: %s", fairy.person().getPassword()));
+        log.info(String.format("Generating company: %s", fairy.company().getName()));
+        log.info(String.format("Generating URL: %s", fairy.company().getUrl()));
+        assertThat(fairy.person().getFullName())
+                .as("Should be new data each time")
+                .isNotEqualTo(fairy.person().getFullName());
+    }
+}

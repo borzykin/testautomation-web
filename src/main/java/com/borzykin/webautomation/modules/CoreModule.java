@@ -6,14 +6,16 @@ import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * @author Oleksii B
+ */
 public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
 
     }
 
-    @Provides
-    @Singleton
+    @Provides @Singleton
     public WebDriver getDriver(DriverFactory driverFactory) {
         return driverFactory.getDriver();
     }
