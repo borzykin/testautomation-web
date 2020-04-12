@@ -1,0 +1,36 @@
+16:27:57.666 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating name: Jace Bass
+16:27:57.670 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating email: josiahmolina@mail.com
+16:27:57.671 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating password: ltYPOCV9
+16:27:57.671 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating company: Nonos Consulting
+16:27:57.672 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating URL: http://www.memortechindustries.eu
+16:27:57.901 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - T E S T
+16:29:00.972 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating name: Arianna Rivas
+16:29:00.977 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating email: samuel.hebert@yahoo.com
+16:29:00.978 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating password: DE2IuVuI
+16:29:00.979 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating company: Adapt
+16:29:00.980 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating URL: http://www.interdemlimited.biz
+16:29:01.229 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - T E S T
+16:31:25.173 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating name: Parker Rutledge
+16:31:25.179 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating email: hunterjensen@gmail.com
+16:31:25.181 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating password: k6fPhzF8
+16:31:25.182 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating company: Warst Company
+16:31:25.182 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating URL: http://www.linger.biz
+16:31:25.412 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - T E S T
+18:14:57.829 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - User(id=1, name=Leanne Graham, username=Bret, email=Sincere@april.biz, address=Address(zipCode=92998-3874, geo=Geo(lng=81.1496, lat=-37.3159), suite=Apt. 556, city=Gwenborough, street=Kulas Light), phone=1-770-736-8031 x56442, website=hildegard.org, company=Company(bs=harness real-time e-markets, catchPhrase=Multi-layered client-server neural-net, name=Romaguera-Crona))
+18:18:04.003 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved name: Leanne Graham
+18:18:04.007 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved email: Sincere@april.biz
+18:18:04.008 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved address: Address(zipCode=92998-3874, geo=Geo(lng=81.1496, lat=-37.3159), suite=Apt. 556, city=Gwenborough, street=Kulas Light)
+18:18:55.969 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved name: Leanne Graham
+18:18:55.973 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved email: Sincere@april.biz
+18:18:55.974 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved phone: 1-770-736-8031 x56442
+18:18:55.974 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved address: Address(zipCode=92998-3874, geo=Geo(lng=81.1496, lat=-37.3159), suite=Apt. 556, city=Gwenborough, street=Kulas Light)
+18:20:11.060 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating name: Robert Patel
+18:20:11.063 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating email: wheeler@yahoo.com
+18:20:11.064 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating password: u4sY3fJ4
+18:20:11.065 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating company: Gualas
+18:20:11.066 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Generating URL: http://www.memortech.eu
+18:20:13.039 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved name: Leanne Graham
+18:20:13.039 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved email: Sincere@april.biz
+18:20:13.039 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved phone: 1-770-736-8031 x56442
+18:20:13.039 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - Retrieved address: Address(zipCode=92998-3874, geo=Geo(lng=81.1496, lat=-37.3159), suite=Apt. 556, city=Gwenborough, street=Kulas Light)
+18:20:13.287 [main] INFO  com.borzykin.webautomation.tests.FrameworkDevelopmentTests - T E S T

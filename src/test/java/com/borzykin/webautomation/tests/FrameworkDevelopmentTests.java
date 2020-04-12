@@ -1,7 +1,9 @@
 package com.borzykin.webautomation.tests;
 
+import com.borzykin.webautomation.models.User;
 import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.HomePage;
+import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.data.Percentage;
@@ -19,6 +21,8 @@ public class FrameworkDevelopmentTests extends BaseTest {
     private HomePage homePage;
     @Inject
     private AbTestPage abTestPage;
+    @Inject
+    private RestService restService;
 
     @Test
     public void testingTests() {
@@ -48,5 +52,14 @@ public class FrameworkDevelopmentTests extends BaseTest {
         assertThat(fairy.person().getFullName())
                 .as("Should be new data each time")
                 .isNotEqualTo(fairy.person().getFullName());
+    }
+
+    @Test
+    public void restTest() {
+        User user = restService.getUser(1);
+        log.info(String.format("Retrieved name: %s", user.getName()));
+        log.info(String.format("Retrieved email: %s", user.getEmail()));
+        log.info(String.format("Retrieved phone: %s", user.getPhone()));
+        log.info(String.format("Retrieved website: %s", user.getWebsite()));
     }
 }

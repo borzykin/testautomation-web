@@ -2,6 +2,7 @@ package com.borzykin.webautomation.models;
 
 import java.util.function.Consumer;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -13,9 +14,22 @@ import static java.util.Objects.requireNonNull;
 @Data
 @AllArgsConstructor
 public class User {
-    private String email;
+    @SerializedName("id")
+    private int id;
+    @SerializedName("name")
+    private String name;
+    @SerializedName("username")
     private String username;
-    private String password;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("address")
+    private Address address;
+    @SerializedName("phone")
+    private String phone;
+    @SerializedName("website")
+    private String website;
+    @SerializedName("company")
+    private Company company;
 
     public User(final Consumer<User> builder) {
         requireNonNull(builder).accept(this);
