@@ -4,6 +4,7 @@ import com.borzykin.webautomation.config.DriverFactory;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import io.codearte.jfairy.Fairy;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -12,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
-        // future binding will be here
+        bind(Fairy.class).toInstance(Fairy.create());
     }
 
     @Provides @Singleton
