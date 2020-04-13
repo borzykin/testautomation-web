@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Oleksii B
  */
 @Log4j2
-public class FrameworkDevelopmentTests extends BaseTest {
+public class FrameworkDevelopment2Tests extends BaseTest {
     @Inject
     private HomePage homePage;
     @Inject

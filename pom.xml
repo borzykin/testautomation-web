@@ -26,6 +26,7 @@
         <maven.checkstyle.version>3.1.0</maven.checkstyle.version>
         <maven.pmd.version>3.12.0</maven.pmd.version>
         <maven.surefire.version>3.0.0-M1</maven.surefire.version>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
     </properties>
 
     <dependencies>
@@ -92,6 +93,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -106,6 +108,8 @@
                         <selenium.browser>${browser}</selenium.browser>
                         <buildDirectory>${project.build.directory}</buildDirectory>
                     </systemPropertyVariables>
+                    <forkCount>2</forkCount>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
             <plugin>
