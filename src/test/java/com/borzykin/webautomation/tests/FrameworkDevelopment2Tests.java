@@ -35,8 +35,8 @@ public class FrameworkDevelopment2Tests extends BaseTest {
     public void simpleTest() {
         homePage.navigate();
         homePage.clickAbTestLink();
-        String pageTitle = abTestPage.getPageNameText();
-        assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)"))
+        final String pageTitle = abTestPage.getPageNameText();
+        assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)|(A/B Test Variation 1)"))
                 .as(String.format("Page title '%s' should be 'No A/B Test' or 'A/B Test Control'", pageTitle))
                 .isEqualTo(true);
     }
@@ -55,7 +55,7 @@ public class FrameworkDevelopment2Tests extends BaseTest {
 
     @Test
     public void restTest() {
-        User user = restService.getUser(1);
+        final User user = restService.getUser(1);
         log.info(String.format("Retrieved name: %s", user.getName()));
         log.info(String.format("Retrieved email: %s", user.getEmail()));
         log.info(String.format("Retrieved phone: %s", user.getPhone()));

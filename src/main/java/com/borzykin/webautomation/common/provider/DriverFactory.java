@@ -1,4 +1,4 @@
-package com.borzykin.webautomation.config;
+package com.borzykin.webautomation.common.provider;
 
 import com.google.inject.Inject;
 import io.github.bonigarcia.wdm.WebDriverManager;

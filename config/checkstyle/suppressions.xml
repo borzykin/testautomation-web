@@ -5,5 +5,4 @@
     <suppress checks="WriteTag" files=".*[\\/]src[\\/](test)[\\/]"/>
     <suppress checks="NonEmptyAtclauseDescription" files=".*[\\/]src[\\/](test)[\\/]"/>
     <suppress checks="ClassFanOutComplexity" files=".*[\\/]src[\\/](test)[\\/]"/>
-    <suppress checks="MethodCount" files=".*.(OfferPage|RequestPage|WorkfolioPage)"/>
 </suppressions>
