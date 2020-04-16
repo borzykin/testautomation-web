@@ -1,5 +1,8 @@
 package com.borzykin.webautomation.tests;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.borzykin.webautomation.models.User;
 import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.HomePage;
@@ -9,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,6 +47,18 @@ public class FrameworkDevelopmentTests extends BaseTest {
         assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)|(A/B Test Variation 1)"))
                 .as(String.format("Page title '%s' should be 'No A/B Test' or 'A/B Test Control'", pageTitle))
                 .isEqualTo(true);
+    }
+
+    @Test
+    @DisplayName("Streams for WebElements test")
+    public void simpleCollectionTest() {
+        homePage.navigate();
+        List<String> filteredLinks = homePage.getAvailableLinks()
+                .stream()
+                .filter(x -> x.getText().contains("Dynamic"))
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+        log.info(filteredLinks.toString());
     }
 
     @Test
