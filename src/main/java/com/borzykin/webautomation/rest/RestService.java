@@ -2,9 +2,14 @@ package com.borzykin.webautomation.rest;
 
 import com.borzykin.webautomation.models.User;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.config.ObjectMapperConfig;
+import io.restassured.http.ContentType;
 import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import lombok.extern.log4j.Log4j2;
 
 import static io.restassured.RestAssured.given;
@@ -14,12 +19,28 @@ import static io.restassured.RestAssured.given;
  */
 @Log4j2
 public class RestService {
-    public User getUser(final int id) {
+    private final RequestSpecification requestSpec;
+    private final ResponseSpecification responseSpec;
+
+    public RestService() {
+        requestSpec = new RequestSpecBuilder()
+                .setBaseUri("https://jsonplaceholder.typicode.com")
+                .setAccept(ContentType.JSON)
+                .setContentType(ContentType.JSON)
+                .build();
+        responseSpec = new ResponseSpecBuilder()
+                .expectStatusCode(200)
+                .build();
         RestAssured.config().objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON));
+    }
+
+    public User getUser(final int id) {
         final Response response = given()
-                .get(String.format("https://jsonplaceholder.typicode.com/users/%d", id))
+                .spec(requestSpec)
+                .when()
+                .get(Endpoints.USERS, id)
                 .then()
-                .statusCode(200)
+                .spec(responseSpec)
                 .extract().response();
         return response.getBody().as(User.class);
     }

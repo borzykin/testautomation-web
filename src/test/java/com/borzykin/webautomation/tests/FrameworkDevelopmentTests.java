@@ -7,6 +7,7 @@ import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.data.Percentage;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,6 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Oleksii B
  */
 @Log4j2
+@DisplayName("Framework development related tests")
 public class FrameworkDevelopmentTests extends BaseTest {
     @Inject
     private HomePage homePage;
@@ -24,6 +26,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     private RestService restService;
 
     @Test
+    @DisplayName("Logger and AssertJ tests")
     public void testingTests() {
         log.info("T E S T");
         assertThat(2 + 2)
@@ -32,6 +35,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Page Objects test")
     public void simpleTest() {
         homePage.navigate();
         homePage.clickAbTestLink();
@@ -42,6 +46,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("jFairy Tests")
     public void fakeDataProviderTest() {
         log.info(String.format("Generating name: %s", fairy.person().getFullName()));
         log.info(String.format("Generating email: %s", fairy.person().getEmail()));
@@ -54,11 +59,13 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @DisplayName("Rest assured Tests")
     public void restTest() {
         final User user = restService.getUser(1);
         log.info(String.format("Retrieved name: %s", user.getName()));
         log.info(String.format("Retrieved email: %s", user.getEmail()));
         log.info(String.format("Retrieved phone: %s", user.getPhone()));
         log.info(String.format("Retrieved website: %s", user.getWebsite()));
+        log.info(String.format("Retrieved address: %s", user.getAddress()));
     }
 }
