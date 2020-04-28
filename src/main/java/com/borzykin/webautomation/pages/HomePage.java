@@ -25,9 +25,8 @@ public class HomePage extends BasePage {
         driver.get("https://the-internet.herokuapp.com/");
     }
 
-    public AbTestPage clickAbTestLink() {
+    public void clickAbTestLink() {
         clickElement(abTestLink);
-        return new AbTestPage(driver);
     }
 
     public List<WebElement> getAvailableLinks() {

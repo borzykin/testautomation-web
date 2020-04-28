@@ -22,7 +22,7 @@ public class DriverFactory {
     }
 
     public WebDriver getDriver() {
-        if (null == driver) {
+        if (driver == null) {
             createDriver();
         }
         return driver;

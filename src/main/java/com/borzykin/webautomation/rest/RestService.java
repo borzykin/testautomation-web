@@ -1,6 +1,7 @@
 package com.borzykin.webautomation.rest;
 
 import com.borzykin.webautomation.models.User;
+import com.google.inject.Inject;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -22,6 +23,7 @@ public class RestService {
     private final RequestSpecification requestSpec;
     private final ResponseSpecification responseSpec;
 
+    @Inject
     public RestService() {
         requestSpec = new RequestSpecBuilder()
                 .setBaseUri("https://jsonplaceholder.typicode.com")
