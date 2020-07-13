@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -21,5 +22,13 @@ public final class DateUtils {
         return ZonedDateTime.of(
                 LocalDate.parse(date, DateTimeFormatter.ofPattern(pattern)),
                 LocalTime.MAX, ZoneId.systemDefault());
+    }
+
+    void waitFor(final long mills) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(mills);
+        } catch (InterruptedException ex) {
+            log.error(ex.getMessage());
+        }
     }
 }

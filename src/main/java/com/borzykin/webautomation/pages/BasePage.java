@@ -5,8 +5,10 @@ import java.util.List;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -62,4 +64,22 @@ public class BasePage {
     protected void waitForElementToBeClickable(final WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    protected void clickJS(final WebElement element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", element);
+    }
+
+    protected void clickByActions(final WebElement element) {
+        final Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.click();
+        actions.build().perform();
+    }
+
+    // todo
+    // waitForElementVisibility
+    // waitForElementPresence
+    // waitForElementsAmount
+    // waitForElementWithText
+    // waitForClassNotContains
 }
