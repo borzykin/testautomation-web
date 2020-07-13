@@ -1,5 +1,6 @@
 package com.borzykin.webautomation.common.provider;
 
+import com.borzykin.webautomation.common.ProjectConfig;
 import com.google.inject.Inject;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +19,7 @@ public class DriverFactory {
 
     @Inject
     public DriverFactory() {
-        this.browser = System.getProperty("selenium.browser");
+        this.browser = ProjectConfig.getBrowser();
     }
 
     public WebDriver getDriver() {

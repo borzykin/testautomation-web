@@ -1,5 +1,7 @@
 package com.borzykin.webautomation.tests;
 
+import java.util.Locale;
+
 import com.borzykin.webautomation.modules.CoreModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;

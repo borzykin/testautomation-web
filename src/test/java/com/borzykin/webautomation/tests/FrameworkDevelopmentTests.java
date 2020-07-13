@@ -1,16 +1,20 @@
 package com.borzykin.webautomation.tests;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import com.borzykin.webautomation.models.User;
 import com.borzykin.webautomation.pages.AbTestPage;
+import com.borzykin.webautomation.pages.DropDownPage;
 import com.borzykin.webautomation.pages.HomePage;
 import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
@@ -27,9 +31,14 @@ public class FrameworkDevelopmentTests extends BaseTest {
     @Inject
     private AbTestPage abTestPage;
     @Inject
+    private DropDownPage dropDownPage;
+    @Inject
+    private ResourceBundle messages;
+    @Inject
     private RestService restService;
 
     @Test
+    @Tag("smoke")
     @DisplayName("Logger and AssertJ tests")
     public void testingTests() {
         log.info("T E S T");
@@ -39,6 +48,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Page Objects test")
     public void simpleTest() {
         homePage.navigate();
@@ -50,6 +60,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Streams for WebElements test")
     public void simpleCollectionTest() {
         homePage.navigate();
@@ -62,6 +73,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("jFairy Tests")
     public void fakeDataProviderTest() {
         log.info(String.format("Generating name: %s", fairy.person().getFullName()));
@@ -75,6 +87,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
+    @Tag("regression")
     @DisplayName("Rest assured Tests")
     public void restTest() {
         final User user = restService.getUser(1);
@@ -83,5 +96,16 @@ public class FrameworkDevelopmentTests extends BaseTest {
         log.info(String.format("Retrieved phone: %s", user.getPhone()));
         log.info(String.format("Retrieved website: %s", user.getWebsite()));
         log.info(String.format("Retrieved address: %s", user.getAddress()));
+    }
+
+    @Test
+    @Tag("localization")
+    @DisplayName("Correct translations tests (resource bundle research)")
+    public void localizationTest() {
+        homePage.navigate();
+        homePage.clickDropDownLink();
+        assertThat(dropDownPage.getPageNameText())
+                .as("Correct locale should apply")
+                .isEqualTo(messages.getString("screen.dropdown.label"));
     }
 }

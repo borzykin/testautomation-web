@@ -15,6 +15,8 @@ public class HomePage extends BasePage {
     private List<WebElement> links;
     @FindBy (linkText = "A/B Testing")
     private WebElement abTestLink;
+    @FindBy (linkText = "Dropdown")
+    private WebElement dropDown;
 
     @Inject
     public HomePage(final WebDriver driver) {
@@ -31,5 +33,9 @@ public class HomePage extends BasePage {
 
     public List<WebElement> getAvailableLinks() {
         return links;
+    }
+
+    public void clickDropDownLink() {
+        clickElement(dropDown);
     }
 }
