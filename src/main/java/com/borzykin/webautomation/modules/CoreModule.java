@@ -7,6 +7,7 @@ import com.borzykin.webautomation.common.ProjectConfig;
 import com.borzykin.webautomation.common.provider.DriverFactory;
 import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.DropDownPage;
+import com.borzykin.webautomation.pages.FormAuthenticationPage;
 import com.borzykin.webautomation.pages.HomePage;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -25,6 +26,7 @@ public class CoreModule extends AbstractModule {
         bind(AbTestPage.class).in(Scopes.SINGLETON);
         bind(HomePage.class).in(Scopes.SINGLETON);
         bind(DropDownPage.class).in(Scopes.SINGLETON);
+        bind(FormAuthenticationPage.class).in(Scopes.SINGLETON);
     }
 
     @Provides @Singleton

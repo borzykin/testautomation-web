@@ -2,6 +2,7 @@ package com.borzykin.webautomation.pages;
 
 import java.util.List;
 
+import com.borzykin.webautomation.common.utils.DateUtils;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
@@ -38,11 +39,6 @@ public class BasePage {
         return driver.findElements(locator);
     }
 
-    protected void clickElement(final By locator) {
-        waitForElementToBeClickable(locator);
-        getWebElement(locator).click();
-    }
-
     protected void clickElement(final WebElement element) {
         waitForElementToBeClickable(element);
         element.click();
@@ -53,8 +49,26 @@ public class BasePage {
         element.sendKeys(text);
     }
 
+    protected void typeTextToFieldByChar(final WebElement element, final String text) {
+        element.clear();
+        for (int i = 0; i < text.length(); i++) {
+            final char letter = text.charAt(i);
+            element.sendKeys(String.valueOf(letter));
+            DateUtils.waitFor(25);
+        }
+    }
+
     protected void waitForElementToBeVisible(final By locator) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    protected void waitForElementToBeVisible(final WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    protected void waitForElementToBeVisible(final WebElement element, final int timeoutMs) {
+        final WebDriverWait wait = new WebDriverWait(driver, timeoutMs / 1000);
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
     protected void waitForElementToBeClickable(final By locator) {
@@ -62,6 +76,11 @@ public class BasePage {
     }
 
     protected void waitForElementToBeClickable(final WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    protected void waitForElementToBeClickable(final WebElement element, final int timeoutMs) {
+        final WebDriverWait wait = new WebDriverWait(driver, timeoutMs / 1000);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
@@ -75,11 +94,4 @@ public class BasePage {
         actions.click();
         actions.build().perform();
     }
-
-    // todo
-    // waitForElementVisibility
-    // waitForElementPresence
-    // waitForElementsAmount
-    // waitForElementWithText
-    // waitForClassNotContains
 }

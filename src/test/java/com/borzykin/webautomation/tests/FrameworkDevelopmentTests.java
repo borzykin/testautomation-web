@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.borzykin.webautomation.models.User;
 import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.DropDownPage;
+import com.borzykin.webautomation.pages.FormAuthenticationPage;
 import com.borzykin.webautomation.pages.HomePage;
 import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.Inject;
@@ -32,6 +33,8 @@ public class FrameworkDevelopmentTests extends BaseTest {
     private AbTestPage abTestPage;
     @Inject
     private DropDownPage dropDownPage;
+    @Inject
+    private FormAuthenticationPage formAuthenticationPage;
     @Inject
     private ResourceBundle messages;
     @Inject
@@ -96,6 +99,18 @@ public class FrameworkDevelopmentTests extends BaseTest {
         log.info(String.format("Retrieved phone: %s", user.getPhone()));
         log.info(String.format("Retrieved website: %s", user.getWebsite()));
         log.info(String.format("Retrieved address: %s", user.getAddress()));
+    }
+
+    @Test
+    @Tag("regression")
+    @DisplayName("Input methods tests")
+    public void inputTests() {
+        homePage.navigate();
+        homePage.clickFormAuthenticationLink();
+        formAuthenticationPage.enterLoginData("admin", "admin");
+        assertThat(formAuthenticationPage.getErrorMessage())
+                .as("Error about failed login should be shown")
+                .contains(messages.getString("screen.auth.error"));
     }
 
     @Test

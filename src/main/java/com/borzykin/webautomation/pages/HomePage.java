@@ -17,6 +17,8 @@ public class HomePage extends BasePage {
     private WebElement abTestLink;
     @FindBy (linkText = "Dropdown")
     private WebElement dropDown;
+    @FindBy (linkText = "Form Authentication")
+    private WebElement formAuthentication;
 
     @Inject
     public HomePage(final WebDriver driver) {
@@ -27,15 +29,19 @@ public class HomePage extends BasePage {
         driver.get("https://the-internet.herokuapp.com/");
     }
 
-    public void clickAbTestLink() {
-        clickElement(abTestLink);
-    }
-
     public List<WebElement> getAvailableLinks() {
         return links;
     }
 
+    public void clickAbTestLink() {
+        clickElement(abTestLink);
+    }
+
     public void clickDropDownLink() {
         clickElement(dropDown);
+    }
+
+    public void clickFormAuthenticationLink() {
+        clickElement(formAuthentication);
     }
 }

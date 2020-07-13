@@ -24,7 +24,7 @@ public final class DateUtils {
                 LocalTime.MAX, ZoneId.systemDefault());
     }
 
-    void waitFor(final long mills) {
+    public static void waitFor(final long mills) {
         try {
             TimeUnit.MILLISECONDS.sleep(mills);
         } catch (InterruptedException ex) {
