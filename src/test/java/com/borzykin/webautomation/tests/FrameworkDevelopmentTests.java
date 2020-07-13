@@ -67,7 +67,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     @DisplayName("Streams for WebElements test")
     public void simpleCollectionTest() {
         homePage.navigate();
-        List<String> filteredLinks = homePage.getAvailableLinks()
+        final List<String> filteredLinks = homePage.getAvailableLinks()
                 .stream()
                 .filter(x -> x.getText().contains("Dynamic"))
                 .map(WebElement::getText)
