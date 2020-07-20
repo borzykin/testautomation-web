@@ -1,5 +1,7 @@
 package com.borzykin.webautomation.common.utils;
 
+import java.io.IOException;
+import java.util.Properties;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -12,10 +14,9 @@ import javax.mail.URLName;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.search.AndTerm;
 import javax.mail.search.FromTerm;
+import javax.mail.search.RecipientStringTerm;
 import javax.mail.search.SearchTerm;
 import javax.mail.search.SubjectTerm;
-import java.io.IOException;
-import java.util.Properties;
 
 import com.borzykin.webautomation.common.utils.model.EmailAddress;
 import com.sun.mail.imap.IMAPFolder;
@@ -117,6 +118,30 @@ public class EmailUtils implements AutoCloseable {
         Message[] msg = null;
         try {
             msg = folder.search(new AndTerm(new SearchTerm[]{new FromTerm(new EmailAddress(from).getAddressObject()), new SubjectTerm(subject)}));
+        } catch (MessagingException e) {
+            log.error("Error while searching for emails: {}", e.getMessage());
+        }
+        return msg;
+    }
+
+    public Message[] getMessagesTo(final String to) {
+        connect();
+        log.info("Trying to find emails to [{}] at inbox [{}]", to, username);
+        Message[] msg = null;
+        try {
+            msg = folder.search(new RecipientStringTerm(Message.RecipientType.TO, to));
+        } catch (MessagingException e) {
+            log.error("Error while searching for emails: {}", e.getMessage());
+        }
+        return msg;
+    }
+
+    public Message[] getMessagesToWithSubject(final String to, final String subject) {
+        connect();
+        log.info("Trying to find emails to [{}] with subject [{}] at inbox [{}]", to, subject, username);
+        Message[] msg = null;
+        try {
+            msg = folder.search(new AndTerm(new SearchTerm[]{new RecipientStringTerm(Message.RecipientType.TO, to), new SubjectTerm(subject)}));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
         }
