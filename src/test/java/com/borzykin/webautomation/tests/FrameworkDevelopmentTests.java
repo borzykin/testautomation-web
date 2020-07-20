@@ -130,8 +130,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     @Tag("email")
     @DisplayName("Email library implementation tests")
     public void emailTest() {
-        homePage.navigate();
-        EmailUtils email = new EmailUtils("qadecf1@gmail.com", "");
+        EmailUtils email = new EmailUtils("qadecf1@gmail.com", "332Real321g");
 
         Message[] messagesFrom = email.getMessagesFrom("no-reply@accounts.google.com");
         Message[] messagesWithSubject = email.getMessagesWithSubject("Confirmation instructions for Mailtrap account");
