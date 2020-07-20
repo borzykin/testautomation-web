@@ -1,10 +1,17 @@
 package com.borzykin.webautomation.tests;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import com.borzykin.webautomation.common.utils.EmailUtils;
 import com.borzykin.webautomation.models.User;
 import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.DropDownPage;
@@ -19,6 +26,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
+import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -122,5 +130,14 @@ public class FrameworkDevelopmentTests extends BaseTest {
         assertThat(dropDownPage.getPageNameText())
                 .as("Correct locale should apply")
                 .isEqualTo(messages.getString("screen.dropdown.label"));
+    }
+
+    @Test
+    @Tag("email")
+    @DisplayName("Email library implementation tests")
+    public void emailTest() {
+        homePage.navigate();
+        EmailUtils email = new EmailUtils("qadecf1@gmail.com", "332Real321");
+        email.getMessagesFrom("no-reply@accounts.google.com");
     }
 }
