@@ -1,7 +1,6 @@
 package com.borzykin.webautomation.common.utils;
 
 import javax.mail.BodyPart;
-import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,20 +11,20 @@ import javax.mail.Store;
 import javax.mail.URLName;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.search.AndTerm;
-import javax.mail.search.FlagTerm;
 import javax.mail.search.FromTerm;
-import javax.mail.search.RecipientStringTerm;
 import javax.mail.search.SearchTerm;
 import javax.mail.search.SubjectTerm;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Properties;
 
-import com.borzykin.webautomation.common.utils.model.Address;
+import com.borzykin.webautomation.common.utils.model.EmailAddress;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPSSLStore;
 import lombok.extern.log4j.Log4j2;
 
+/**
+ * @author Oleksii B
+ */
 @Log4j2
 public class EmailUtils implements AutoCloseable {
     protected Session session;
@@ -33,16 +32,17 @@ public class EmailUtils implements AutoCloseable {
     protected IMAPFolder folder;
     protected String username;
     protected String password;
-    private boolean connected = false;
+    private boolean connected;
     private static final String URL = "imap.gmail.com";
     private static final int PORT = 993;
     private static final String PROTOCOL = "imaps";
 
-    public EmailUtils(String username, String password) {
+    public EmailUtils(final String username, final String password) {
         this.username = username;
         this.password = password;
+        this.connected = false;
 
-        Properties props = new Properties();
+        final Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", 465);
         props.put("mail.smtp.auth", "true");
@@ -56,8 +56,22 @@ public class EmailUtils implements AutoCloseable {
 
         session = Session.getInstance(props);
 
-        URLName urlName = new URLName(PROTOCOL, URL, PORT, null, username, password);
+        final URLName urlName = new URLName(PROTOCOL, URL, PORT, null, username, password);
         store = new IMAPSSLStore(session, urlName);
+    }
+
+    private void connect() {
+        if (!connected) {
+            try {
+                log.info("Connecting to inbox: {}", username);
+                store.connect(URL, username, password);
+                folder = (IMAPFolder) store.getFolder("INBOX");
+                folder.open(Folder.READ_WRITE);
+                connected = true;
+            } catch (MessagingException e) {
+                log.error("error trying to connect", e);
+            }
+        }
     }
 
     @Override
@@ -73,138 +87,91 @@ public class EmailUtils implements AutoCloseable {
         }
     }
 
-    private void connect() {
-        if (!connected) {
-            try {
-                store.connect(URL, username, password);
-                folder = (IMAPFolder) store.getFolder("INBOX");
-                folder.open(Folder.READ_WRITE);
-                connected = true;
-            } catch (MessagingException e) {
-                log.error("error trying to connect", e);
-            }
-        }
-    }
-
-    public Message[] getMessages() {
+    public Message[] getMessagesFrom(final String from) {
         connect();
+        log.info("Trying to find emails from [{}] at inbox [{}]", from, username);
         Message[] msg = null;
         try {
-            msg = folder.getMessages();
+            msg = folder.search(new FromTerm(new EmailAddress(from).getAddressObject()));
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.error("Error while searching for emails: {}", e.getMessage());
         }
         return msg;
     }
 
-    public void getMessagesFrom(String from) {
+    public Message[] getMessagesWithSubject(final String subject) {
         connect();
+        log.info("Trying to find emails with subject [{}] at inbox [{}]", subject, username);
         Message[] msg = null;
         try {
-            msg = folder.search(new FromTerm(new Address(from).getAddressObject()));
-            log.info(getTextFromMessage(msg[0]));
+            msg = folder.search(new SubjectTerm(subject));
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.error("Error while searching for emails: {}", e.getMessage());
         }
+        return msg;
     }
 
-    private Message[] filterEmailByUnreadSubjectAndSentTo(String email, String subject) {
-
-        SearchTerm emailSearchTerm = new RecipientStringTerm(Message.RecipientType.TO, email);
-        SearchTerm subjectSearchTerm = new SubjectTerm(subject);
-        SearchTerm unreadSearchTerm = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
-
-        SearchTerm searchTerm = new AndTerm(new SearchTerm[]{emailSearchTerm, subjectSearchTerm, unreadSearchTerm});
-
-        return search(searchTerm);
-    }
-
-    private Message[] search(SearchTerm searchTerm) {
-        Message[] messagesFound = null;
+    public Message[] getMessagesFromWithSubject(final String from, final String subject) {
+        connect();
+        log.info("Trying to find emails from [{}] with subject [{}] at inbox [{}]", from, subject, username);
+        Message[] msg = null;
         try {
-            if (!connected) {
-                connect();
-            }
-            messagesFound = folder.search(searchTerm);
+            msg = folder.search(new AndTerm(new SearchTerm[]{new FromTerm(new EmailAddress(from).getAddressObject()), new SubjectTerm(subject)}));
         } catch (MessagingException e) {
-            log.error("Error searching for email", e);
+            log.error("Error while searching for emails: {}", e.getMessage());
         }
-        return messagesFound;
+        return msg;
     }
 
-    private Message[] filterEmailByUnreadSubject(String subject) {
-
-        SearchTerm subjectSearchTerm = new SubjectTerm(subject);
-        SearchTerm unreadSearchTerm = new FlagTerm(new Flags(Flags.Flag.SEEN), false);
-
-        SearchTerm searchTerm = new AndTerm(new SearchTerm[] { subjectSearchTerm, unreadSearchTerm });
-
-        return search(searchTerm);
-    }
-
-    private String getHTMLFromMessage(Message message) {
+    private String getHtmlFromMessage(final Message message) {
         String result = null;
-
         try {
             result = getContentFromMessage(message, "text/html");
         } catch (MessagingException | IOException e) {
-            log.error("error trying to get text. assumed multipart content type with at least one plain text part", e);
-            e.printStackTrace();
+            log.error("error trying to get text. assumed multipart content type with at least one plain text part: {}", e.getMessage());
         }
-
         return result;
     }
 
-    private String getTextFromMessage(Message message) {
-
+    private String getTextFromMessage(final Message message) {
         String result = null;
-
         try {
             result = getContentFromMessage(message, "text/plain");
         } catch (MessagingException | IOException e) {
             log.error("error trying to get text. assumed multipart content type with at least one plain text part", e);
         }
-
         return result;
-
     }
 
-    private String getContentFromMessage(Message message, String mimeType) throws IOException, MessagingException {
-
+    // todo remove throws from signature
+    private String getContentFromMessage(final Message message, final String mimeType) throws IOException, MessagingException {
         String result = null;
-
         if (message.isMimeType("multipart/*")) {
-            MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
-            int count = mimeMultipart.getCount();
+            final MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
+            final int count = mimeMultipart.getCount();
 
             for (int i = 0; i < count; i++) {
-                BodyPart bodyPart = mimeMultipart.getBodyPart(i);
+                final BodyPart bodyPart = mimeMultipart.getBodyPart(i);
                 if (bodyPart.isMimeType(mimeType)) {
                     result = bodyPart.getContent().toString();
                     break;
                 }
                 if (bodyPart.isMimeType("multipart/ALTERNATIVE")) {
-                    Multipart mp = (Multipart) bodyPart.getContent();
-                    int count2 = mp.getCount();
+                    final Multipart mp = (Multipart) bodyPart.getContent();
+                    final int count2 = mp.getCount();
                     for (int j = 0; j < count2; j++) {
-                        Part bp = mp.getBodyPart(j);
+                        final Part bp = mp.getBodyPart(j);
                         if (bp.isMimeType(mimeType)) {
                             result = (String) bp.getContent();
                             break;
                         }
                     }
-
                 }
-
             }
-
         }
-
         if (message.isMimeType("text/plain")) {
-
             result = (String) message.getContent();
         }
-
         return result;
     }
 }

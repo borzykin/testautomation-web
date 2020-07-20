@@ -20,6 +20,8 @@
         <exclude name="UseAssertNullInsteadOfAssertTrue"/>
         <exclude name="UseAssertSameInsteadOfAssertTrue"/>
         <exclude name="UseAssertTrueInsteadOfAssertEquals"/>
+        <exclude name="UnusedPrivateMethod"/>
+        <exclude name="MissingOverride"/>
     </rule>
 
     <rule ref="category/java/codestyle.xml">
@@ -80,6 +82,7 @@
         <exclude name="SimplifyBooleanAssertion"/>
         <exclude name="StdCyclomaticComplexity"/>
         <exclude name="TooManyFields"/>
+        <exclude name="AvoidDeeplyNestedIfStmts"/>
     </rule>
     <rule ref="category/java/design.xml/TooManyMethods">
         <properties>

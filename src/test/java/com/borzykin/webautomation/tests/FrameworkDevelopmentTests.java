@@ -1,15 +1,9 @@
 package com.borzykin.webautomation.tests;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.borzykin.webautomation.common.utils.EmailUtils;
 import com.borzykin.webautomation.models.User;
@@ -20,13 +14,13 @@ import com.borzykin.webautomation.pages.HomePage;
 import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
+import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
-import static java.util.Objects.requireNonNull;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -137,7 +131,16 @@ public class FrameworkDevelopmentTests extends BaseTest {
     @DisplayName("Email library implementation tests")
     public void emailTest() {
         homePage.navigate();
-        EmailUtils email = new EmailUtils("qadecf1@gmail.com", "332Real321");
-        email.getMessagesFrom("no-reply@accounts.google.com");
+        EmailUtils email = new EmailUtils("qadecf1@gmail.com", "");
+
+        Message[] messagesFrom = email.getMessagesFrom("no-reply@accounts.google.com");
+        Message[] messagesWithSubject = email.getMessagesWithSubject("Confirmation instructions for Mailtrap account");
+        Message[] messagesWithSubjectFrom = email.getMessagesFromWithSubject("no-reply@accounts.google.com", "Оповещение системы безопасности");
+
+        SoftAssertions.assertSoftly(softAssertions -> {
+            softAssertions.assertThat(messagesFrom).hasSizeGreaterThan(0);
+            softAssertions.assertThat(messagesWithSubject).hasSizeGreaterThan(0);
+            softAssertions.assertThat(messagesWithSubjectFrom).hasSizeGreaterThan(0);
+        });
     }
 }

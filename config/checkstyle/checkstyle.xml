@@ -121,12 +121,6 @@
 
         <!-- Imports -->
         <module name="AvoidStarImport"/>
-        <module name="CustomImportOrder">
-            <property name="specialImportsRegExp" value="com.linkedinSearchService.*"/>
-            <property name="customImportOrderRules"
-                      value="STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE###SPECIAL_IMPORTS###STATIC"/>
-            <property name="sortImportsInGroupAlphabetically" value="true"/>
-        </module>
         <module name="IllegalImport">
             <property name="illegalPkgs" value="java\.util"/>
         </module>
