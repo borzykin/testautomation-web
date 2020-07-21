@@ -70,7 +70,7 @@ public class EmailUtils implements AutoCloseable {
                 folder.open(Folder.READ_WRITE);
                 connected = true;
             } catch (MessagingException e) {
-                log.error("error trying to connect", e);
+                log.error("Error while connecting to the email server", e);
             }
         }
     }
@@ -97,8 +97,6 @@ public class EmailUtils implements AutoCloseable {
             msg = folder.search(new FromTerm(new EmailAddress(from).getAddressObject()));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
-        } finally {
-            close();
         }
         return msg;
     }
@@ -111,8 +109,6 @@ public class EmailUtils implements AutoCloseable {
             msg = folder.search(new SubjectTerm(subject));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
-        } finally {
-            close();
         }
         return msg;
     }
@@ -125,8 +121,6 @@ public class EmailUtils implements AutoCloseable {
             msg = folder.search(new AndTerm(new SearchTerm[]{new FromTerm(new EmailAddress(from).getAddressObject()), new SubjectTerm(subject)}));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
-        } finally {
-            close();
         }
         return msg;
     }
@@ -139,8 +133,6 @@ public class EmailUtils implements AutoCloseable {
             msg = folder.search(new RecipientStringTerm(Message.RecipientType.TO, to));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
-        } finally {
-            close();
         }
         return msg;
     }
@@ -153,8 +145,6 @@ public class EmailUtils implements AutoCloseable {
             msg = folder.search(new AndTerm(new SearchTerm[]{new RecipientStringTerm(Message.RecipientType.TO, to), new SubjectTerm(subject)}));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
-        } finally {
-            close();
         }
         return msg;
     }
