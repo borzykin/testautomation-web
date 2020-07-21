@@ -3,6 +3,7 @@ package com.borzykin.webautomation.common.utils;
 import java.io.IOException;
 import java.util.Properties;
 import javax.mail.BodyPart;
+import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,6 +14,7 @@ import javax.mail.Store;
 import javax.mail.URLName;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.search.AndTerm;
+import javax.mail.search.FlagTerm;
 import javax.mail.search.FromTerm;
 import javax.mail.search.RecipientStringTerm;
 import javax.mail.search.SearchTerm;
@@ -143,6 +145,21 @@ public class EmailUtils implements AutoCloseable {
         Message[] msg = null;
         try {
             msg = folder.search(new AndTerm(new SearchTerm[]{new RecipientStringTerm(Message.RecipientType.TO, to), new SubjectTerm(subject)}));
+        } catch (MessagingException e) {
+            log.error("Error while searching for emails: {}", e.getMessage());
+        }
+        return msg;
+    }
+
+    public Message[] getMessagesToWithSubject(final String to, final String subject, final boolean isSeen) {
+        connect();
+        log.info("Trying to find emails to [{}] with subject [{}] at inbox [{}] that are seen: [{}]", to, subject, username, isSeen);
+        Message[] msg = null;
+        try {
+            msg = folder.search(new AndTerm(new SearchTerm[]{
+                    new RecipientStringTerm(Message.RecipientType.TO, to),
+                    new FlagTerm(new Flags(Flags.Flag.SEEN), isSeen),
+                    new SubjectTerm(subject)}));
         } catch (MessagingException e) {
             log.error("Error while searching for emails: {}", e.getMessage());
         }

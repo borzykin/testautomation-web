@@ -221,7 +221,7 @@
             <property name="max" value="5"/>
         </module>
         <module name="ClassDataAbstractionCoupling">
-            <property name="max" value="9"/>
+            <property name="max" value="12"/>
         </module>
         <module name="ClassFanOutComplexity">
             <property name="max" value="25"/>

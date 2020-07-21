@@ -135,11 +135,17 @@ public class FrameworkDevelopmentTests extends BaseTest {
         Message[] messagesFrom = email.getMessagesFrom("no-reply@accounts.google.com");
         Message[] messagesWithSubject = email.getMessagesWithSubject("Confirmation instructions for Mailtrap account");
         Message[] messagesWithSubjectFrom = email.getMessagesFromWithSubject("no-reply@accounts.google.com", "Оповещение системы безопасности");
+        Message[] messagesTo = email.getMessagesTo("qadecf1+mailfromcode@gmail.com");
+        Message[] messagesToWithSubject = email.getMessagesToWithSubject("qadecf1+mailfromcode@gmail.com", "Mail test");
+        Message[] messagesToWithSubjectUnread = email.getMessagesToWithSubject("qadecf1+mailfromcode@gmail.com", "Mail test", false);
 
         SoftAssertions.assertSoftly(softAssertions -> {
             softAssertions.assertThat(messagesFrom).hasSizeGreaterThan(0);
             softAssertions.assertThat(messagesWithSubject).hasSizeGreaterThan(0);
             softAssertions.assertThat(messagesWithSubjectFrom).hasSizeGreaterThan(0);
+            softAssertions.assertThat(messagesTo).hasSizeGreaterThan(0);
+            softAssertions.assertThat(messagesToWithSubject).hasSizeGreaterThan(0);
+            softAssertions.assertThat(messagesToWithSubjectUnread).hasSizeGreaterThan(0);
         });
     }
 }
