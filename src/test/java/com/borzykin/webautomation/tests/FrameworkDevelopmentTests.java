@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * @author Oleksii B
@@ -130,6 +131,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     @Tag("email")
     @DisplayName("Email library implementation tests")
     public void emailTest() {
+        // this object should be instantiated inside try-with-resources for real-world usage
         final EmailUtils email = new EmailUtils("qadecf1@gmail.com", "");
 
         Message[] messagesFrom = email.getMessagesFrom("no-reply@accounts.google.com");
@@ -137,7 +139,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
         Message[] messagesWithSubjectFrom = email.getMessagesFromWithSubject("no-reply@accounts.google.com", "Оповещение системы безопасности");
         Message[] messagesTo = email.getMessagesTo("qadecf1+mailfromcode@gmail.com");
         Message[] messagesToWithSubject = email.getMessagesToWithSubject("qadecf1+mailfromcode@gmail.com", "Mail test");
-        Message[] messagesToWithSubjectUnread = email.getMessagesToWithSubject("qadecf1+mailfromcode@gmail.com", "Mail test", false);
+        Message[] messagesToWithSubjectUnread = email.getMessagesToWithSubject("qadecf1+mailfromcode@gmail.com", "Mail test", true);
 
         SoftAssertions.assertSoftly(softAssertions -> {
             softAssertions.assertThat(messagesFrom).hasSizeGreaterThan(0);
