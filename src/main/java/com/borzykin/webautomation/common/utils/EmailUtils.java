@@ -21,6 +21,7 @@ import javax.mail.search.SearchTerm;
 import javax.mail.search.SubjectTerm;
 
 import com.borzykin.webautomation.common.utils.model.EmailAddress;
+import com.borzykin.webautomation.common.utils.model.EmailMessage;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.imap.IMAPSSLStore;
 import lombok.extern.log4j.Log4j2;
@@ -164,6 +165,20 @@ public class EmailUtils implements AutoCloseable {
             log.error("Error while searching for emails: {}", e.getMessage());
         }
         return msg;
+    }
+
+    public EmailMessage getEmailPojo(final Message message) {
+        return new EmailMessage(data -> {
+            try {
+                data.setFrom(message.getFrom()[0].toString());
+                data.setTo(message.getRecipients(Message.RecipientType.TO)[0].toString());
+                data.setSubject(message.getSubject());
+                data.setBodyText(getTextFromMessage(message));
+                data.setBodyHtml(getHtmlFromMessage(message));
+            } catch (MessagingException e) {
+                log.error("Error while parsing email to POJO: {}", e.getMessage());
+            }
+        });
     }
 
     private String getHtmlFromMessage(final Message message) {
