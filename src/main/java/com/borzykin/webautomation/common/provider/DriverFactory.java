@@ -1,7 +1,6 @@
 package com.borzykin.webautomation.common.provider;
 
 import com.borzykin.webautomation.common.ProjectConfig;
-import com.google.inject.Inject;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
@@ -13,24 +12,22 @@ import org.openqa.selenium.firefox.FirefoxDriver;
  * @author Oleksii B
  */
 @Log4j2
-public class DriverFactory {
-    private final String browser;
-    private WebDriver driver;
+public final class DriverFactory {
+    private static WebDriver driver;
 
-    @Inject
-    public DriverFactory() {
-        this.browser = ProjectConfig.getBrowser();
+    private DriverFactory() {
+        throw new IllegalArgumentException("Suppress default constructor");
     }
 
-    public WebDriver getDriver() {
+    public static WebDriver getDriver() {
         if (driver == null) {
             createDriver();
         }
         return driver;
     }
 
-    private void createDriver() {
-        switch (browser.toLowerCase()) {
+    private static void createDriver() {
+        switch (ProjectConfig.getBrowser()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
@@ -50,10 +47,7 @@ public class DriverFactory {
                 driver = new FirefoxDriver();
                 break;
             default:
-                log.info(String.format("Do not know how to start: '%s', starting chrome.", browser));
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                break;
+                throw new IllegalArgumentException();
         }
     }
 }

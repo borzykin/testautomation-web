@@ -23,15 +23,11 @@ public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(Fairy.class).toInstance(Fairy.create());
+        bind(WebDriver.class).toInstance(DriverFactory.getDriver());
         bind(AbTestPage.class).in(Scopes.SINGLETON);
         bind(HomePage.class).in(Scopes.SINGLETON);
         bind(DropDownPage.class).in(Scopes.SINGLETON);
         bind(FormAuthenticationPage.class).in(Scopes.SINGLETON);
-    }
-
-    @Provides @Singleton
-    public WebDriver getDriver(final DriverFactory driverFactory) {
-        return driverFactory.getDriver();
     }
 
     @Provides @Singleton
