@@ -1,8 +1,6 @@
 package com.borzykin.webautomation.tests;
 
 import javax.mail.Message;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -14,16 +12,14 @@ import com.borzykin.webautomation.pages.DropDownPage;
 import com.borzykin.webautomation.pages.FormAuthenticationPage;
 import com.borzykin.webautomation.pages.HomePage;
 import com.borzykin.webautomation.rest.RestService;
+import com.borzykin.webautomation.tests.base.BaseTest;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 
 import static org.assertj.core.api.Assertions.assertThat;

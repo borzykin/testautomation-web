@@ -66,8 +66,8 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    protected void waitForElementToBeVisible(final WebElement element, final int timeoutMs) {
-        final WebDriverWait wait = new WebDriverWait(driver, timeoutMs / 1000);
+    protected void waitForElementToBeVisible(final WebElement element, final int timeout) {
+        final WebDriverWait wait = new WebDriverWait(driver, timeout);
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -79,8 +79,8 @@ public class BasePage {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    protected void waitForElementToBeClickable(final WebElement element, final int timeoutMs) {
-        final WebDriverWait wait = new WebDriverWait(driver, timeoutMs / 1000);
+    protected void waitForElementToBeClickable(final WebElement element, final int timeout) {
+        final WebDriverWait wait = new WebDriverWait(driver, timeout);
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 

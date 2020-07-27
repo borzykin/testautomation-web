@@ -33,7 +33,7 @@ public class FormAuthenticationPage extends BasePage {
     }
 
     public String getErrorMessage() {
-        waitForElementToBeVisible(errorAlert, 5_000);
+        waitForElementToBeVisible(errorAlert, 5);
         return errorAlert.getText();
     }
 }

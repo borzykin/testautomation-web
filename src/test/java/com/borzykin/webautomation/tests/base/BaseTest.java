@@ -1,4 +1,4 @@
-package com.borzykin.webautomation.tests;
+package com.borzykin.webautomation.tests.base;
 
 import com.borzykin.webautomation.common.provider.DriverFactory;
 import com.borzykin.webautomation.modules.CoreModule;

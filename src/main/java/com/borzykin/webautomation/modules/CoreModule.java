@@ -9,6 +9,7 @@ import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.DropDownPage;
 import com.borzykin.webautomation.pages.FormAuthenticationPage;
 import com.borzykin.webautomation.pages.HomePage;
+import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
@@ -28,6 +29,7 @@ public class CoreModule extends AbstractModule {
         bind(HomePage.class).in(Scopes.SINGLETON);
         bind(DropDownPage.class).in(Scopes.SINGLETON);
         bind(FormAuthenticationPage.class).in(Scopes.SINGLETON);
+        bind(RestService.class).in(Scopes.SINGLETON);
     }
 
     @Provides @Singleton
