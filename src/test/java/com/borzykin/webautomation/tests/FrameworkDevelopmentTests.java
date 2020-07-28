@@ -1,6 +1,7 @@
 package com.borzykin.webautomation.tests;
 
 import javax.mail.Message;
+import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -15,6 +16,8 @@ import com.borzykin.webautomation.rest.RestService;
 import com.borzykin.webautomation.tests.base.BaseTest;
 import com.google.inject.Inject;
 import lombok.extern.log4j.Log4j2;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.DisplayName;
@@ -79,7 +82,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
-    @Tag("regression")
+    @Tag("smoke")
     @DisplayName("jFairy Tests")
     public void fakeDataProviderTest() {
         log.info(String.format("Generating name: %s", fairy.person().getFullName()));
@@ -93,7 +96,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
-    @Tag("regression")
+    @Tag("smoke")
     @DisplayName("Rest assured Tests")
     public void restTest() {
         final User user = restService.getUser(1);
@@ -105,7 +108,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
-    @Tag("regression")
+    @Tag("smoke")
     @DisplayName("Input methods tests")
     public void inputTests() {
         homePage.navigate();
@@ -117,7 +120,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
-    @Tag("localization")
+    @Tag("smoke")
     @DisplayName("Correct translations tests (resource bundle research)")
     public void localizationTest() {
         homePage.navigate();
@@ -128,7 +131,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
     }
 
     @Test
-    @Tag("email")
+    @Tag("smoke")
     @DisplayName("Email library implementation tests")
     public void emailTest() {
         // this object should be instantiated inside try-with-resources for real-world usage
@@ -149,5 +152,18 @@ public class FrameworkDevelopmentTests extends BaseTest {
             softAssertions.assertThat(messagesToWithSubject).hasSizeGreaterThan(0);
             softAssertions.assertThat(messagesToWithSubjectUnread).hasSizeGreaterThan(0);
         });
+    }
+
+    @Test
+    @Tag("smoke")
+    @DisplayName("PDF library implementation tests")
+    public void pdfTest() {
+        try (var document = PDDocument.load(getClass().getClassLoader().getResourceAsStream("sample.pdf"))) {
+            final String pdfText = new PDFTextStripper().getText(document);
+            log.info("Parsed text size is {} characters:", pdfText.length());
+            log.info("Parsed document: \n{}", pdfText);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
