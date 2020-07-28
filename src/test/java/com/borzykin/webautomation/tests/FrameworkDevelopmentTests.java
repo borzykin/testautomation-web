@@ -1,6 +1,7 @@
 package com.borzykin.webautomation.tests;
 
 import javax.mail.Message;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import com.borzykin.webautomation.pages.HomePage;
 import com.borzykin.webautomation.rest.RestService;
 import com.borzykin.webautomation.tests.base.BaseTest;
 import com.google.inject.Inject;
+import com.opencsv.CSVReader;
 import lombok.extern.log4j.Log4j2;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -156,13 +158,30 @@ public class FrameworkDevelopmentTests extends BaseTest {
 
     @Test
     @Tag("smoke")
-    @DisplayName("PDF library implementation tests")
+    @DisplayName("PDF library implementation test")
     public void pdfTest() {
         try (var document = PDDocument.load(getClass().getClassLoader().getResourceAsStream("sample.pdf"))) {
             final String pdfText = new PDFTextStripper().getText(document);
             log.info("Parsed text size is {} characters:", pdfText.length());
             log.info("Parsed document: \n{}", pdfText);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @Tag("smoke")
+    @DisplayName("CSV library implementation test")
+    public void csvTest() {
+        // to get country code of Guyana from csv file
+        try (var reader = new CSVReader(new FileReader("src/test/resources/country.csv"))) {
+            List<String[]> list = reader.readAll();
+            for (String[] line : list) {
+                if (line[0].equals("Guyana")) {
+                    log.info(line[1]);
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
