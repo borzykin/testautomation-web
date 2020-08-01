@@ -9,6 +9,7 @@ import com.borzykin.webautomation.pages.AbTestPage;
 import com.borzykin.webautomation.pages.DropDownPage;
 import com.borzykin.webautomation.pages.FormAuthenticationPage;
 import com.borzykin.webautomation.pages.HomePage;
+import com.borzykin.webautomation.rest.RestService;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Scopes;
@@ -23,15 +24,12 @@ public class CoreModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(Fairy.class).toInstance(Fairy.create());
+        bind(WebDriver.class).toInstance(DriverFactory.getDriver());
         bind(AbTestPage.class).in(Scopes.SINGLETON);
         bind(HomePage.class).in(Scopes.SINGLETON);
         bind(DropDownPage.class).in(Scopes.SINGLETON);
         bind(FormAuthenticationPage.class).in(Scopes.SINGLETON);
-    }
-
-    @Provides @Singleton
-    public WebDriver getDriver(final DriverFactory driverFactory) {
-        return driverFactory.getDriver();
+        bind(RestService.class).in(Scopes.SINGLETON);
     }
 
     @Provides @Singleton

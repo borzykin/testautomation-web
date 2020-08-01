@@ -2,3 +2,4 @@
 /.idea/
 /logs/log_file.txt
 /app.log
+/allure-results/

@@ -13,8 +13,6 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import lombok.extern.log4j.Log4j2;
 
-import static io.restassured.RestAssured.given;
-
 /**
  * @author Oleksii B
  */
@@ -33,7 +31,12 @@ public class RestService {
         responseSpec = new ResponseSpecBuilder()
                 .expectStatusCode(200)
                 .build();
-        RestAssured.config().objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON));
+    }
+
+    private static RequestSpecification given() {
+        return RestAssured.given()
+                .config(RestAssured.config()
+                        .objectMapperConfig(new ObjectMapperConfig(ObjectMapperType.GSON)));
     }
 
     public User getUser(final int id) {
