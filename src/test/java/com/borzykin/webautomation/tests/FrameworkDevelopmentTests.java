@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import com.borzykin.webautomation.common.utils.DateUtils;
 import com.borzykin.webautomation.common.utils.EmailUtils;
 import com.borzykin.webautomation.models.User;
 import com.borzykin.webautomation.pages.AbTestPage;
@@ -183,6 +184,29 @@ public class FrameworkDevelopmentTests extends BaseTest {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    @Tag("concurrency")
+    @DisplayName("Parallelism with WebDriver attempt")
+    public void testConcurrent() {
+        homePage.navigate();
+        homePage.clickFormAuthenticationLink();
+
+        Thread thread = new Thread(() -> {
+            formAuthenticationPage.enterLoginData("admin", "admin");
+            log.info("Got error: {}", formAuthenticationPage.getErrorMessage());
+        });
+        thread.start();
+
+        for (int i = 0; i < 100; i++) {
+            log.info("Working in main thread...");
+            DateUtils.waitFor(250);
+            if (!thread.isAlive()) {
+                log.info("Same element from main thread: {}", formAuthenticationPage.getErrorMessage());
+                break;
+            }
         }
     }
 }
