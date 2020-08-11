@@ -94,4 +94,8 @@ public class BasePage {
         actions.click();
         actions.build().perform();
     }
+
+    protected void scrollIntoView(final WebDriver element) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
 }
