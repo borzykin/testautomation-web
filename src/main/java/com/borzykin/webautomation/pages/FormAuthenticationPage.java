@@ -34,6 +34,6 @@ public class FormAuthenticationPage extends BasePage {
 
     public String getErrorMessage() {
         waitForElementToBeVisible(errorAlert, 5);
-        return errorAlert.getText();
+        return errorAlert.getText().replace("×", "").trim();
     }
 }
