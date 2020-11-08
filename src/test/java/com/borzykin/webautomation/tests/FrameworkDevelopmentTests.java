@@ -56,7 +56,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
         log.info("T E S T");
         assertThat(2 + 2)
                 .as("Sum should be close")
-                .isCloseTo(5, Percentage.withPercentage(25));
+                .isEqualTo(4);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
         homePage.clickAbTestLink();
         final String pageTitle = abTestPage.getPageNameText();
         assertThat(pageTitle.matches("(No A/B Test)|(A/B Test Control)|(A/B Test Variation 1)"))
-                .as(String.format("Page title '%s' should be 'No A/B Test' or 'A/B Test Control'", pageTitle))
+                .as(String.format("Page title '%s' should be one of the expected", pageTitle))
                 .isEqualTo(true);
     }
 
@@ -112,7 +112,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
 
     @Test
     @Tag("smoke")
-    @DisplayName("Input methods tests")
+    @DisplayName("Input char-by-char (slow input) methods tests")
     public void inputTests() {
         homePage.navigate();
         homePage.clickFormAuthenticationLink();
@@ -124,7 +124,7 @@ public class FrameworkDevelopmentTests extends BaseTest {
 
     @Test
     @Tag("smoke")
-    @DisplayName("Correct translations tests (resource bundle research)")
+    @DisplayName("Correct translations tests (resource bundle)")
     public void localizationTest() {
         homePage.navigate();
         homePage.clickDropDownLink();
@@ -137,7 +137,6 @@ public class FrameworkDevelopmentTests extends BaseTest {
     @Tag("smoke")
     @DisplayName("Email library implementation tests")
     public void emailTest() {
-        // this object should be instantiated inside try-with-resources for real-world usage
         final EmailUtils email = new EmailUtils("qadecf1@gmail.com", "");
 
         Message[] messagesFrom = email.getMessagesFrom("no-reply@accounts.google.com");

@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Dependencies versions -->
         <assertj.core.version>3.15.0</assertj.core.version>
-        <aspectj.version>1.8.10</aspectj.version>
+        <aspectj.version>1.9.5</aspectj.version>
         <allure.version>2.13.5</allure.version>
         <junit.jupiter.version>5.6.0</junit.jupiter.version>
         <selenium.version>3.141.5</selenium.version>
