@@ -21,7 +21,7 @@
         <junit.jupiter.version>5.6.0</junit.jupiter.version>
         <selenium.version>3.141.5</selenium.version>
         <lombok.version>1.18.10</lombok.version>
-        <log4j.version>2.13.3</log4j.version>
+        <log4j.version>2.15.0</log4j.version>
         <webdrivermanager.version>3.8.1</webdrivermanager.version>
         <fairy.version>0.5.9</fairy.version>
         <guice.version>4.2.3</guice.version>
